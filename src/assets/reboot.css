@@ -1,0 +1,71 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-width: 320px;
+}
+
+html {
+  overflow-wrap: anywhere;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--white);
+}
+
+img,
+video {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
+/* ios button \ inputs reset */
+select,
+textarea,
+input:matches(
+    [type='email'],
+    [type='number'],
+    [type='password'],
+    [type='search'],
+    [type='tel'],
+    [type='text'],
+    [type='url'],
+    [type='button'],
+    [type='reset'],
+    [type='submit']
+  ) {
+  appearance: none;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
