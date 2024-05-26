@@ -2,8 +2,10 @@ import api from '@/api/axios'
 
 const characterUrl = '/character'
 
-const getCharacters = () => {
-  return api.get(characterUrl).then((response) => response.data.results)
+const getCharacters = (pageNumber = 1) => {
+  return api
+    .get(`${characterUrl}/?page=${pageNumber}`)
+    .then((response) => response.data)
 }
 
 export default {
