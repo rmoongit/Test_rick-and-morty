@@ -1,13 +1,15 @@
 <template>
   <ul class="paginations">
-    <li v-for="button in props.pageCount" :key="button">
-      <button type="text">{{ button }}</button>
+    <li v-for="page in props.pageCount" :key="page">
+      <button type="text" @click="emit('goToPage', page)">{{ page }}</button>
     </li>
   </ul>
 </template>
 
 <script setup>
-import {defineProps} from 'vue'
+import {defineProps, defineEmits} from 'vue'
+
+const emit = defineEmits(['goToPage'])
 
 const props = defineProps({
   pageCount: {

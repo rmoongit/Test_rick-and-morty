@@ -47,10 +47,10 @@ const props = defineProps({
     required: true,
   },
 
-  //   episode: {
-  //     type: String,
-  //     required: true,
-  //   },
+  episode: {
+    type: String,
+    required: true,
+  },
 })
 </script>
 
