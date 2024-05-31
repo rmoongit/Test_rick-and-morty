@@ -1,7 +1,13 @@
 <template>
   <ul class="paginations">
     <li v-for="page in props.pageCount" :key="page">
-      <button type="text" @click="emit('goToPage', page)">{{ page }}</button>
+      <button
+        type="text"
+        :class="{active: currentPage === page}"
+        @click="emit('goToPage', page)"
+      >
+        {{ page }}
+      </button>
     </li>
   </ul>
 </template>
@@ -13,6 +19,11 @@ const emit = defineEmits(['goToPage'])
 
 const props = defineProps({
   pageCount: {
+    type: Number,
+    required: true,
+  },
+
+  currentPage: {
     type: Number,
     required: true,
   },
@@ -43,6 +54,11 @@ const props = defineProps({
   cursor: pointer;
   transition: 0.5s;
   border-radius: 0.3rem;
+}
+
+.paginations button.active {
+  background-color: #30a830;
+  opacity: 0.8;
 }
 
 .paginations button:hover {

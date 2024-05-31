@@ -13,7 +13,11 @@
           />
         </li>
       </ul>
-      <PaginationBlock :pageCount="pageCount" @goToPage="goToPage" />
+      <PaginationBlock
+        :pageCount="pageCount"
+        :currentPage="currentPage"
+        @goToPage="goToPage"
+      />
     </div>
   </section>
   FOOTER
@@ -55,11 +59,7 @@ const getEpisodes = async () => {
   return result.results
 }
 
-watch(currentPage, () => {
-  getCharactersPage(currentPage.value)
-})
-
-onMounted(async () => {
+const fetchData = async () => {
   const fetchedCharacters = await getCharactersPage(currentPage.value)
   const fetchedEpisodes = await getEpisodes()
   await getPageCount()
@@ -73,6 +73,14 @@ onMounted(async () => {
 
   characters.value = fetchedCharacters
   episodes.value = fetchedEpisodes
+}
+
+watch(currentPage, async () => {
+  fetchData()
+})
+
+onMounted(() => {
+  fetchData()
 })
 </script>
 
