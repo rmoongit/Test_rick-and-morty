@@ -7,6 +7,7 @@
           <CardItem
             :name="char.name"
             :species="char.species"
+            :status="char.status"
             :location="char.location"
             :image="char.image"
             :episode="char.firstEpisodeName"

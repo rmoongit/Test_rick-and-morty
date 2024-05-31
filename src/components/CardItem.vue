@@ -7,7 +7,10 @@
     <div class="card-info">
       <div class="card-status">
         <h3>{{ props.name }}</h3>
-        <span>{{ props.species }}</span>
+        <p class="status">
+          <i :style="changeBackGround(props.status)" class="icon"></i>
+          <span>{{ `${props.status} - ${props.species}` }}</span>
+        </p>
       </div>
 
       <div class="card-location">
@@ -26,6 +29,17 @@
 <script setup>
 import {defineProps} from 'vue'
 
+const changeBackGround = (status) => {
+  const backgroundColors = {
+    Alive: 'rgb(85, 204, 68)',
+    Dead: 'rgb(214, 61, 46)',
+  }
+
+  return {
+    background: backgroundColors[status],
+  }
+}
+
 const props = defineProps({
   name: {
     type: String,
@@ -33,6 +47,11 @@ const props = defineProps({
   },
 
   species: {
+    type: String,
+    required: true,
+  },
+
+  status: {
     type: String,
     required: true,
   },
@@ -81,7 +100,7 @@ const props = defineProps({
   flex-direction: column;
   row-gap: 10px;
   justify-content: start;
-  padding: 0.75rem;
+  padding: 0.55rem;
   color: #fff;
 }
 
@@ -103,5 +122,19 @@ const props = defineProps({
 .card-status h3 {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.card-status .status {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.icon {
+  display: block;
+  border-radius: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: rgb(158, 158, 158);
 }
 </style>
