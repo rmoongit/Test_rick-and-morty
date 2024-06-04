@@ -1,7 +1,10 @@
 <template>
   <section class="page">
     <div class="container">
-      <CardFilters @selected-filter="($event) => (statusFilter = $event)" />
+      <CardFilters
+        @change-filter="($event) => (statusFilter = $event)"
+        @change-text="($event) => (nameFilter = $event)"
+      />
       <ul v-if="filteredCards" class="cards-list">
         <li class="list-item" v-for="char in filteredCards" :key="char.id">
           <CardItem
@@ -38,15 +41,20 @@ const episodes = ref([])
 const pageCount = ref(1)
 const currentPage = ref(1)
 const statusFilter = ref('all')
+const nameFilter = ref('')
 
 // Подходит ли элемент по статусу
 const byStatus = (el) =>
   statusFilter.value === 'all' ||
   el.status.toLowerCase() === statusFilter.value.toLowerCase()
 
+// Проверяем подходит ли по имени
+const byName = (el) =>
+  el.name.toLowerCase().includes(nameFilter.value.toLowerCase())
+
 // Filter по селекту
 const filteredCards = computed(() => {
-  return characters.value.filter(byStatus)
+  return characters.value.filter(byStatus).filter(byName)
 })
 
 // Переход по странице
