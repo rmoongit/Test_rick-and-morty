@@ -3,16 +3,8 @@
   <router-view />
 </template>
 
-<script>
+<script setup>
 import McvNavigateBar from '@/components/NavigateBar'
-
-export default {
-  name: 'McvApp',
-
-  components: {
-    McvNavigateBar,
-  },
-}
 </script>
 
 <style>

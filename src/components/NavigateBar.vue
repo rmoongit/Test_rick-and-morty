@@ -6,11 +6,7 @@
   </header>
 </template>
 
-<script>
-export default {
-  name: 'McvNavigateBar',
-}
-</script>
+<script setup></script>
 
 <style scoped>
 .header {

@@ -24,7 +24,7 @@
       />
     </div>
   </section>
-  FOOTER
+  <FooterBlock />
 </template>
 
 <script setup>
@@ -34,6 +34,7 @@ import episodesApi from '@/api/episodes'
 import CardItem from '@/components/CardItem'
 import PaginationBlock from '@/components/PaginationBlock'
 import CardFilters from '@/components/CardFilters'
+import FooterBlock from '@/components/FooterBlock'
 
 const characters = ref([])
 const episodes = ref([])
