@@ -1,9 +1,9 @@
 <template>
   <section class="page">
     <div class="container">
-      FILTER
-      <ul v-if="characters" class="cards-list">
-        <li class="list-item" v-for="char in characters" :key="char.id">
+      <CardFilters @selected-filter="selectedFilter" />
+      <ul v-if="filteredCards" class="cards-list">
+        <li class="list-item" v-for="char in filteredCards" :key="char.id">
           <CardItem
             :name="char.name"
             :species="char.species"
@@ -25,17 +25,36 @@
 </template>
 
 <script setup>
-import {ref, onMounted, watch} from 'vue'
+import {ref, onMounted, watch, computed} from 'vue'
 import charactersApi from '@/api/character'
 import episodesApi from '@/api/episodes'
 import CardItem from '@/components/CardItem'
 import PaginationBlock from '@/components/PaginationBlock'
+import CardFilters from '@/components/CardFilters'
 
 const characters = ref([])
 const episodes = ref([])
 
 const pageCount = ref(1)
 const currentPage = ref(1)
+const filter = ref('all')
+
+// Принимаем значение фильтра
+const selectedFilter = (selectValue) => {
+  filter.value = selectValue
+}
+
+// Filter по селекту
+const filteredCards = computed(() => {
+  console.log(filter.value)
+  if (filter.value === 'all') {
+    return characters.value
+  }
+
+  return characters.value.filter(
+    (el) => el.status.toLowerCase() === filter.value.toLowerCase()
+  )
+})
 
 // Переход по странице
 const goToPage = (page) => {
@@ -63,7 +82,6 @@ const getEpisodes = async () => {
 const fetchData = async () => {
   const fetchedCharacters = await getCharactersPage(currentPage.value)
   const fetchedEpisodes = await getEpisodes()
-  await getPageCount()
 
   const episodeMap = new Map(fetchedEpisodes.map((ep) => [ep.url, ep.name]))
 
@@ -77,11 +95,12 @@ const fetchData = async () => {
 }
 
 watch(currentPage, async () => {
-  fetchData()
+  await fetchData()
 })
 
-onMounted(() => {
-  fetchData()
+onMounted(async () => {
+  await fetchData()
+  await getPageCount()
 })
 </script>
 
